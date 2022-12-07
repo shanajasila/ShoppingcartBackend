@@ -30,4 +30,13 @@ public class ShopingController {
     public List<Product> viewpage(){
         return(List<Product>)dao.findAll();
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/searchproduct",consumes = "application/json",produces = "application/json")
+    public List<Product> searchproduct(@RequestBody Product p){
+        String name=String.valueOf(p.getName());
+        System.out.println(name);
+        dao.searchProduct(p.getName());
+        return(List<Product>)dao.searchProduct(p.getName());
+    }
 }
