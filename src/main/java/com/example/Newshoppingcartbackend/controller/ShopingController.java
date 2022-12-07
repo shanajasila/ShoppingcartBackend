@@ -1,7 +1,9 @@
 package com.example.Newshoppingcartbackend.controller;
 
 import com.example.Newshoppingcartbackend.dao.ProductDao;
+import com.example.Newshoppingcartbackend.dao.RegistrationDao;
 import com.example.Newshoppingcartbackend.model.Product;
+import com.example.Newshoppingcartbackend.model.Register;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ public class ShopingController {
 
     @Autowired
     private ProductDao dao;
+    @Autowired
+    private RegistrationDao d;
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/addproduct",consumes = "application/json",produces = "application/json")
@@ -38,6 +42,36 @@ public class ShopingController {
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/searchproduct",consumes = "application/json",produces = "application/json")
     public List<Product> searchproduct(@RequestBody Product p){
+        String name=String.valueOf(p.getName());
+        System.out.println(name);
+        dao.searchProduct(p.getName());
+        return(List<Product>)dao.searchProduct(p.getName());
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/register",consumes = "application/json",produces = "application/json")
+    public HashMap<String,String> login(@RequestBody Register r){
+        System.out.println(r.getName());
+        System.out.println(r.getAddress());
+        System.out.println(r.getEmail());
+        System.out.println(r.getPhoneno());
+        System.out.println(r.getPassword());
+        System.out.println(r.getConfirmpassword());
+        d.save(r);
+        HashMap<String,String>map=new HashMap<>();
+        map.put("status","success");
+        return map;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/viewregister")
+    public List<Register> viewsignuppage(){
+        return(List<Register>)d.findAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
+    public List<Product> login(@RequestBody Product p){
         String name=String.valueOf(p.getName());
         System.out.println(name);
         dao.searchProduct(p.getName());
