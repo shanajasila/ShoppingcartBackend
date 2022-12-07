@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ProductDao extends CrudRepository<Product,Integer>{
 
-    @Query(value = "SELECT `id`, `category`, `description`, `image`, `name`, `price` FROM `products` WHERE `name`= :name",nativeQuery = true)
+    @Query(value = "SELECT `id`, `category`, `description`, `image`, `name`, `price` FROM `products` WHERE `name` LIKE %:name%",nativeQuery = true)
     List<Product>searchProduct(@Param("name") String name);
 }
