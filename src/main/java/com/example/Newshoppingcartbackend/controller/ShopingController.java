@@ -50,7 +50,7 @@ public class ShopingController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/register",consumes = "application/json",produces = "application/json")
-    public HashMap<String,String> login(@RequestBody Register r){
+    public HashMap<String,String> userRegistration(@RequestBody Register r){
         System.out.println(r.getName());
         System.out.println(r.getAddress());
         System.out.println(r.getEmail());
@@ -71,10 +71,11 @@ public class ShopingController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
-    public List<Product> login(@RequestBody Product p){
-        String name=String.valueOf(p.getName());
-        System.out.println(name);
-        dao.searchProduct(p.getName());
-        return(List<Product>)dao.searchProduct(p.getName());
+    public List<Register> login(@RequestBody Register r){
+        String email=String.valueOf(r.getEmail());
+        String password=String.valueOf(r.getPassword());
+        System.out.println(email);
+        System.out.println(password);
+        return(List<Register>)d.login(r.getEmail(),r.getPassword());
     }
 }

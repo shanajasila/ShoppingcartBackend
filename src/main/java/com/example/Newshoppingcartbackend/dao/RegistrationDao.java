@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface RegistrationDao extends CrudRepository<Register,Integer> {
 
-    @Query(value = "SELECT `id`, `address`, `confirmpassword`, `email`, `name`, `password`, `phoneno` FROM `signup` WHERE `email`&&`password`= :email,password",nativeQuery = true)
-    List<Product> login(@Param("email,password") String email ,String password);
+    @Query(value = "SELECT `id`, `address`, `confirmpassword`, `email`, `name`, `password`, `phoneno` FROM `signup` WHERE `email`= :email &&`password`= :password",nativeQuery = true)
+    List<Register> login(@Param("email") String email ,@Param("password") String password);
 }
