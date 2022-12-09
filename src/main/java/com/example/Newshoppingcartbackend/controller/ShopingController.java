@@ -71,11 +71,27 @@ public class ShopingController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
-    public List<Register> login(@RequestBody Register r){
-        String email=String.valueOf(r.getEmail());
-        String password=String.valueOf(r.getPassword());
-        System.out.println(email);
-        System.out.println(password);
-        return(List<Register>)d.login(r.getEmail(),r.getPassword());
+    public HashMap<String,String> login(@RequestBody Register r){
+
+        HashMap<String,String> st=new HashMap<>();
+       List<Register> result= (List<Register>) d.login(r.getEmail(),r.getPassword());
+
+       if (result.size()==0){
+           st.put("status","failed");
+
+       }else {
+           int id =result.get(0).getId();
+           st.put("message","user login success");
+           st.put("userId",String.valueOf(id));
+           st.put("status","success");
+
+       }
+       return st;
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewprofile",consumes = "application/json",produces = "application/json")
+    public List<Register> viewprofile(@RequestBody Register r){
+        return d.viewprofile(r.getId());
     }
 }

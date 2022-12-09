@@ -12,4 +12,7 @@ public interface RegistrationDao extends CrudRepository<Register,Integer> {
 
     @Query(value = "SELECT `id`, `address`, `confirmpassword`, `email`, `name`, `password`, `phoneno` FROM `signup` WHERE `email`= :email &&`password`= :password",nativeQuery = true)
     List<Register> login(@Param("email") String email ,@Param("password") String password);
+
+    @Query(value = "SELECT `id`, `address`, `confirmpassword`, `email`, `name`, `password`, `phoneno` FROM `signup` WHERE `id`= :id",nativeQuery = true)
+    List<Register>viewprofile(@Param("id") Integer id);
 }
